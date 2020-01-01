@@ -122,7 +122,24 @@ document.onmousemove = (e) => {
   mousey = e.clientY;
 }
 document.onmousedown = (e) => {
-  if (hover[0]) {
+  mousex = e.clientX;
+  mousey = e.clientY;
+  let doeshover = false;
+  for (let i = 0; i < 12; i++) {
+    for (let j = 0; j < daysInMonth(i, date.getFullYear()); j++) {
+      let hovering = dist(mousex, mousey, marginNum + scaleNum * j, marginNum + scaleNum * i) <= r;
+      if (hovering) {
+        hover = [i, j];
+        doeshover = true;
+        break;
+      }
+    }
+  }
+  if (!doeshover) {
+    hover = [undefined, undefined];
+  }
+
+  if (hover[0] || hover[0] == 0) {
     console.log(hover)
     if (includes(hover)) {
       selected.splice(includes(hover), 1);
